@@ -33,8 +33,9 @@ const SignUp = () => {
               <label htmlFor="name" className="block text-sm font-medium text-gray-300">Name</label>
               <input
                 type="text"
-                name="name"autoComplete='off'
-                id="name"
+                name="username"
+                autoComplete='off'
+                id="username"
                 required
                 className="mt-1 block w-full px-3 py-2 border bg-gray-800 text-white border-gray-700 rounded-md shadow-sm focus:outline-none"
                 onChange={handleChange}
