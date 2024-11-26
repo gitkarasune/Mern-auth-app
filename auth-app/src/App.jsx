@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import Navbar from './Components/Navbar';
 import Loading from './Containers/Loading';
-import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const SignUp = lazy(()=> import('./Containers/Signup'));
@@ -22,13 +21,13 @@ const App = () => {
       <Navbar/>
       {/* Loading UI */}
       <Suspense fallback={<Loading/>}>
-      <Routes>
-        <Route path='/signup' element={<SignUp/>} />
-        <Route path='/signin' element={<SignIn/>} />
-        <Route path='/home' element={<Home/>} />
-        {/* <Route path='/profile' element={<Profile/>} /> */}
-        <Route path='/about' element={<About/>} />
-      </Routes>
+        <Routes>
+          <Route path='/signup' element={<SignUp/>} />
+          <Route path='/signin' element={<SignIn/>} />
+          <Route path='/' element={<Home/>} />
+          {/* <Route path='/profile' element={<Profile/>} /> */}
+          <Route path='/about' element={<About/>} />
+        </Routes>
       </Suspense>
     </div>
     </Router>

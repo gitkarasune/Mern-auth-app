@@ -27,14 +27,14 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 backdrop-blur-sm">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to="/home" className="text-xl font-bold text-gray-300">
+            <Link to="/" className="text-xl font-bold text-gray-300">
               Auth
             </Link>
           </div>
           
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/home" className="text-gray-400 hover:text-gray-500 px-3 py-2 rounded-md transition duration-150">
+            <Link to="/" className="text-gray-400 hover:text-gray-500 px-3 py-2 rounded-md transition duration-150">
               Home
             </Link>
             {/* <Link to="/profile" className="text-gray-400 hover:text-gray-900 px-3 py-2 rounded-md transition duration-150">
@@ -111,7 +111,7 @@ const Navbar = () => {
           {/* Mobile Menu Links */}
           <div className="flex flex-col px-4 py-2 space-y-2">
             <Link 
-              to="/home" 
+              to="/" 
               className="text-gray-600 hover:text-white hover:bg-gray-600 px-3 py-2 rounded-md transition duration-150"
             >
               Home
