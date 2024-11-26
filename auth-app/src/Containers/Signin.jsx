@@ -1,17 +1,37 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
 
 const SignIn = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const [formData, setFormData] = useState({});
+  const [ error, setError ] = useState(false);
+  const [ loading, setLoading ] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission
-    console.log(formData);
+    try {
+      setError(false);
+      setLoading(true)
+      const res = await fetch("/api/auth/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      setLoading(false)
+      if (data.success === false) {
+        setError(false)
+        return;
+      }
+      navigate("/");
+    } catch (error) {
+      setLoading(false)
+      setError(true)
+    }
   };
 
   const handleChange = (e) => {
@@ -59,7 +79,7 @@ const SignIn = () => {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-gray-600 focus:ring-gray-700 border-gray-800 rounded"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
                   Remember me
@@ -67,7 +87,7 @@ const SignIn = () => {
               </div>
 
               <div className="text-sm">
-                <a href="#" className="font-medium text-blue-700 hover:text-blue-500">
+                <a href="#" className="font-medium text-blue-400 hover:text-blue-500">
                   Forgot your password?
                 </a>
               </div>
@@ -75,10 +95,11 @@ const SignIn = () => {
 
             <div>
               <button
+              disabled={loading}
                 type="submit"
                 className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600"
               >
-                Sign in
+                { loading ? "Loading..." : "Sign in" }
               </button>
             </div>
           </form>
@@ -105,7 +126,7 @@ const SignIn = () => {
           </div>
 
           <p className="mt-6 text-center text-sm text-gray-500">
-            Don't have an account?{' '}
+            Don&apos;t have an account?
             <Link to="/signup" className="font-medium text-blue-600 hover:text-blue-500">
               Sign up here
             </Link>

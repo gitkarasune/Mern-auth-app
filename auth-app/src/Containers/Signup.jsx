@@ -1,23 +1,37 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
+  const [ error, setError ] = useState(false);
+  const [ loading, setLoading ] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission
-
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-    const data = await res.json();
-    console.log(data)
+    try {
+      setError(false);
+      setLoading(true)
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      setLoading(false)
+      if (data.success === false) {
+        setError(false)
+        return;
+      }
+      navigate("/signin");
+    } catch (error) {
+      setLoading(false)
+      setError(true)
+    }
   };
 
   const handleChange = (e) => {
@@ -73,13 +87,14 @@ const SignUp = () => {
             </div>
 
             <div>
-              <button
+              <button disabled={loading}
                 type="submit"
                 className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600"
               >
-                Sign up
+                { loading ? "Loading..." : "Sign up" }
               </button>
             </div>
+            <p className='text-red-800 pt-5 '>{ error && "Something went wrong"}</p>
           </form>
 
           <div className="mt-6">
@@ -104,8 +119,8 @@ const SignUp = () => {
           </div>
 
           <p className="mt-6 text-center text-sm text-gray-500">
-            Already have an account?{' '}
-            <Link to="/signin" className="font-medium text-blue-600 hover:text-blue-500">
+            Already have an account?
+            <Link to="/signin" className="font-medium ml-3 text-blue-600 hover:text-blue-500">
               Login here
             </Link>
           </p>

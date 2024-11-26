@@ -23,7 +23,7 @@ const Navbar = () => {
   }, [isOpen]);
 
   return (
-    <nav className="bg-gray-950 shadow-lg fixed w-full py-3 z-50 bg-opacity-75">
+    <nav className="bg-gray-950 shadow-lg fixed w-full top-0 left-0 py-4 z-50 bg-opacity-75">
       <div className="max-w-7xl mx-auto px-4 backdrop-blur-sm">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
