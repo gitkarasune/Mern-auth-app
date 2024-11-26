@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-
+import userRoutes from "./routes/user.route.js";
 dotenv.config();
 
 mongoose.connect(process.env.MERN_AUTH_KEY).then(() => {
@@ -14,4 +14,6 @@ const app = express();
 
 app.listen(3000, () => {
     console.log('Server Running on Port 3000');
-})
+});
+
+app.use("/api/user", userRoutes);
